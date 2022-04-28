@@ -15,32 +15,14 @@ const useShoppingCart = () => {
     product: Product;
   }) => {
     setShoppingCart((prevShoppingCart) => {
-      const productInCart: ProductInCart = prevShoppingCart[product.id] || {
-        ...product,
-        count: 0,
-      };
-
-      if (Math.max(productInCart.count + count, 0) > 0) {
-        productInCart.count += count;
-
+      if (count > 0) {
         return {
           ...prevShoppingCart,
-          [product.id]: productInCart,
+          [product.id]: { ...product, count },
         };
       }
-
-      //Borrar el producto
       const { [product.id]: toDelete, ...rest } = prevShoppingCart;
       return rest;
-
-      // if (count > 0) {
-      //   return {
-      //     ...prevShoppingCart,
-      //     [product.id]: { ...product, count },
-      //   };
-      // }
-      // const { [product.id]: toDelete, ...rest } = prevShoppingCart;
-      // return rest;
     });
   };
 
